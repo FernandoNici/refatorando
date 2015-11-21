@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui" template="../main.xhtml">
+
+	<ui:define name="content">
+		<h:form>
+		<!-- <h:inputHidden id="idCond" value="#{CondominoManutencaoBean.condomino.id}"></h:inputHidden> -->
+        	<p:panelGrid columns="2">
+				<f:facet name="header">
+					<p:outputLabel value="#{CondominoManutencaoBean.titulo}" />
+				</f:facet>
+					<p:outputLabel value="Nome: " />
+					<p:inputText value="#{CondominoManutencaoBean.condomino.nome}" />
+	
+					<p:outputLabel value="Sobrenome: " />
+					<p:inputText value="#{CondominoManutencaoBean.condomino.sobreNome}" />
+					
+					<p:outputLabel value="CPF: " />
+					<p:inputText value="#{CondominoManutencaoBean.condomino.id}" />
+					
+					<p:outputLabel value="RG: " />
+					<p:inputText value="#{CondominoManutencaoBean.condomino.RG}" />
+	
+					<p:outputLabel value="Telefone: " />
+					<p:inputText value="#{CondominoManutencaoBean.condomino.telefone}" />
+	
+					<p:outputLabel value="Apartamento: " />
+					<p:inputText value="#{CondominoManutencaoBean.condomino.apartamento}" />
+									
+					<f:facet name="footer">
+						<p:row>
+							<p:outputPanel style="width: 100%; text-align:center"
+								layout="block">
+	
+								<p:commandButton value="Salvar"
+									action="lista.faces" actionListener="#{CondominoManutencaoBean.save}"
+									style="margin: 130 auto;" ajax="false" />
+								<p:commandButton value="Cancelar"
+									action="/paginas/condomino/lista.faces"
+									actionListener="#{CondominoManutencaoBean.cancel}"
+									style="margin: 130 auto;" ajax="false" />
+							</p:outputPanel>
+						</p:row>
+					</f:facet>
+			</p:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>

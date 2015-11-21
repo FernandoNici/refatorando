@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui" template="../main.xhtml">
+
+	<ui:define name="content">
+		<h:form>
+		<!-- <h:inputHidden id="idCond" value="#{CondominioManutencaoBean.condominio.CNPJ}"></h:inputHidden> -->
+        	<p:panelGrid columns="2">
+				<f:facet name="header">
+					<p:outputLabel value="#{CondominioManutencaoBean.titulo}" />
+				</f:facet>
+					<p:outputLabel value="Nome: " />
+					<p:inputText value="#{CondominioManutencaoBean.condominio.nome}" />
+	
+					<p:outputLabel value="CNPJ: " />
+					<p:inputText value="#{CondominioManutencaoBean.condominio.CNPJ}" />
+	
+					<p:outputLabel value="Qtd. Andares: " />
+					<p:inputText value="#{CondominioManutencaoBean.condominio.andares}" />
+					
+					<p:outputLabel value="Qtd. Aptos/Andar: " />
+					<p:inputText value="#{CondominioManutencaoBean.condominio.aptosPorAndar}" />
+	
+					<p:outputLabel value="CEP: " />
+					<p:inputText value="#{CondominioManutencaoBean.condominio.cep}" />
+	
+					<p:outputLabel value="Endereco: " />
+					<p:inputText value="#{CondominioManutencaoBean.condominio.endereco}" />
+									
+					<p:outputLabel value="Bairro: " />
+					<p:inputText value="#{CondominioManutencaoBean.condominio.bairro}" />
+							
+					<p:outputLabel value="Municipio: " />
+					<p:inputText value="#{CondominioManutencaoBean.condominio.municipio}" />
+	
+					<f:facet name="footer">
+						<p:row>
+							<p:outputPanel style="width: 100%; text-align:center"
+								layout="block">
+	
+								<p:commandButton value="Salvar"
+									action="lista.faces" actionListener="#{CondominioManutencaoBean.save}"
+									style="margin: 130 auto;" ajax="false" />
+								<p:commandButton value="Cancelar"
+									action="/paginas/condominio/lista.faces"
+									actionListener="#{CondominioManutencaoBean.cancel}"
+									style="margin: 130 auto;" ajax="false" />
+							</p:outputPanel>
+						</p:row>
+					</f:facet>
+			</p:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>

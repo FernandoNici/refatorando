@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui" template="../main.xhtml">
+
+	<ui:define name="content">
+		<f:view>
+			<f:event listener="#{CondominioBean.onLoad}" type="preRenderView" />
+		</f:view>
+
+		<p:panel id="condominioPanel" header="Condominios">
+			<h:form id="condominioForm">
+				<p:commandButton widgetVar="addButton" value="Adicionar"
+					action="/paginas/condominio/manutencao.faces" ajax="false" 
+					actionListener="#{CondominioManutencaoBean.add}"/>
+				<p:commandButton widgetVar="deleteButton" value="Remover"
+					action="#{CondominioBean.delete}" update="condominioDataTable"/>
+				<p:commandButton widgetVar="updateButton" value="Editar" 
+					action="/paginas/condominio/manutencao.faces" update="condominioDataTable"
+					actionListener="#{CondominioManutencaoBean.update}"/>
+					
+						
+				<p:dataTable id="condominioDataTable" widgetVar="dataTable"
+					var="condominio" loadingMessage="condominio"
+					value="#{CondominioBean.condominios}" paginator="true" rows="10"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="10,20" rowKey="#{condominio.CNPJ}"
+					selectionMode="single">
+
+					<p:ajax event="rowSelect" listener="#{CondominioBean.selectCondominio}"
+						oncomplete="enableButtons();" />
+					<p:ajax event="page" listener="#{CondominioBean.unSelectCondominio}"
+						oncomplete="unselectRows();" />
+					<p:ajax event="rowUnselect" listener="#{CondominioBean.unSelectCondominio}"
+						oncomplete="unselectRows();" />
+					
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="CNPJ" />
+						</f:facet>
+						<h:outputText value="#{condominio.CNPJ}" />
+					</p:column>
+					
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Condominio" />
+						</f:facet>
+						<h:outputText value="#{condominio.nome}" />
+					</p:column>
+					
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Municipio" />
+						</f:facet>
+						<h:outputText value="#{condominio.municipio}" />
+					</p:column>
+					
+				</p:dataTable>
+			</h:form>
+		</p:panel>
+
+	</ui:define>
+</ui:composition>

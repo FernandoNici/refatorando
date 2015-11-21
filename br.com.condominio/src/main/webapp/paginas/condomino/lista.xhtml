@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui" template="../main.xhtml">
+
+	<ui:define name="content">
+		<f:view>
+			<f:event listener="#{CondominoBean.onLoad}" type="preRenderView" />
+		</f:view>
+
+		<p:panel id="condominoPanel" header="Condominos">
+			<h:form id="condominoForm">
+				<p:commandButton widgetVar="addButton" value="Adicionar"
+					action="/paginas/condomino/manutencao.faces" ajax="false" 
+					actionListener="#{CondominoManutencaoBean.add}"/>
+				<p:commandButton widgetVar="deleteButton" value="Remover"
+					action="#{CondominoBean.delete}" update="condominoDataTable"/>
+				<p:commandButton widgetVar="updateButton" value="Editar" update="condominoDataTable"
+					action="/paginas/condomino/manutencao.faces" 
+					actionListener="#{CondominoManutencaoBean.update}"/>
+					
+						
+				<p:dataTable id="condominoDataTable" widgetVar="dataTable"
+					var="condomino" loadingMessage="condomino"
+					value="#{CondominoBean.condominos}" paginator="true" rows="10"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="10,20" rowKey="#{condomino.id}"
+					selectionMode="single">
+
+					<p:ajax event="rowSelect" listener="#{CondominoBean.selectCondomino}"
+						oncomplete="enableButtons();" />
+					<p:ajax event="page" listener="#{CondominoBean.unSelectCondomino}"
+						oncomplete="unselectRows();" />
+					<p:ajax event="rowUnselect" listener="#{CondominoBean.unSelectCondomino}"
+						oncomplete="disableButtons();" />
+					
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="CPF" />
+						</f:facet>
+						<h:outputText value="#{condomino.id}" />
+					</p:column>
+					
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Nome" />
+						</f:facet>
+						<h:outputText value="#{condomino.nome}" />
+					</p:column>
+					
+				</p:dataTable>
+			</h:form>
+		</p:panel>
+
+	</ui:define>
+</ui:composition>
